@@ -17,6 +17,10 @@ public class CountryCodeConverter {
     private Map<String, String> countryCodeToCountry = new HashMap<>();
     private Map<String, String> countryToCountryCode = new HashMap<>();
 
+    public static void main(String[] args) {
+        CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+    }
+
     /**
      * Default constructor that loads the country codes from "country-codes.txt"
      * in the resources folder.
@@ -27,6 +31,7 @@ public class CountryCodeConverter {
 
     /**
      * Overloaded constructor that allows us to specify the filename to load the country code data from.
+     *
      * @param filename the name of the file in the resources folder to load the data from
      * @throws RuntimeException if the resources file can't be loaded properly
      */
@@ -41,41 +46,44 @@ public class CountryCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
-                // TODO Task B: use parts to populate the instance variables
+                parts[2] = parts[2].toLowerCase(); // normalize lowercase for country code
+                // Country | Alpha-2 | Alpha-3 | Numeric
+
+                // Using conversions from Alpha-3 <-> Country
+                this.countryCodeToCountry.put(parts[2], parts[0]);
+                this.countryToCountryCode.put(parts[0], parts[2]);
             }
-        }
-        catch (IOException | URISyntaxException ex) {
+        } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
     /**
      * Return the name of the country for the given country code.
+     *
      * @param code the 3-letter code of the country
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return code;
+        return this.countryCodeToCountry.get(code.toLowerCase());
     }
 
     /**
      * Return the code of the country for the given country name.
+     *
      * @param country the name of the country
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return country;
+        return this.countryToCountryCode.get(country.toLowerCase());
     }
 
     /**
      * Return how many countries are included in this country code converter.
+     *
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return 0;
+        return countryCodeToCountry.size();
     }
 }
