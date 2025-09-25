@@ -3,12 +3,14 @@ package translation;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import java.awt.event.*;
 
 public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+
             JPanel languagePanel = new JPanel();
             languagePanel.add(new JLabel("Language:"));
 
@@ -83,6 +85,7 @@ public class GUI {
                 }
             });
 
+            // Build main panel
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
             mainPanel.add(languagePanel);
