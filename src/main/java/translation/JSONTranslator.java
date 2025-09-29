@@ -89,5 +89,3 @@ public class JSONTranslator implements Translator {
         return this.translations.get(countryCode+"-"+languageCode);
     }
 }
-
-//testing push
